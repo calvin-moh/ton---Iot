@@ -116,7 +116,8 @@ Place them into:
 ## 👩‍💻 Author
 
 **Shahna Shahul Hameed**  
-MSc Artificial Intelligence, National College of Ireland  
+MSc Artificial Intelligence, Dublin, Ireland
+_*[Mail Id]*_(shahna.s.hameed@gmail.com)
 🔗 *[LinkedIn Profile](https://www.linkedin.com/in/shahna-shahul-hameed/)* | *[GitHub Profile](https://github.com/shahna-2409)*
 
 ---
