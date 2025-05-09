@@ -121,6 +121,15 @@ MSc Artificial Intelligence, National College of Ireland
 
 ---
 
+## 📄 Project Report
+
+The full MSc research report is available for download/reference:
+
+📘 [Download Final Thesis Report (PDF)](PROJECT-REPORT.pdf)
+
+This report explains the background, objectives, methodology, experimental results, and key findings of the DeepDefend project.
+
+
 ## 📄 License
 
 Licensed under the MIT License.
