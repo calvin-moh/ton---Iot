@@ -117,7 +117,9 @@ Place them into:
 
 **Shahna Shahul Hameed**  
 MSc Artificial Intelligence, Dublin, Ireland
-_*[Mail Id]*_(shahna.s.hameed@gmail.com)
+
+(shahna.s.hameed24@gmail.com)
+
 🔗 *[LinkedIn Profile](https://www.linkedin.com/in/shahna-shahul-hameed/)* | *[GitHub Profile](https://github.com/shahna-2409)*
 
 ---
