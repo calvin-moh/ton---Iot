@@ -117,7 +117,7 @@ Place them into:
 
 **Shahna Shahul Hameed**  
 MSc Artificial Intelligence, National College of Ireland  
-🔗 *[LinkedIn Profile](#)* | *[GitHub Profile](#)*
+🔗 *[LinkedIn Profile](https://www.linkedin.com/in/shahna-shahul-hameed/)* | *[GitHub Profile](#)*
 
 ---
 
