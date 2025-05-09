@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Intrusion Detection System - Hareesh</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Intrusion Detection System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('profile')}}">View Data Report</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Downloads
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{{ url_for('download_file',filename='Train.txt')}}">Train Data</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('download_file',filename='Test.txt')}}">Test Data</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('download_file',filename='Co_Relation.csv')}}">Co-Relation Data</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('download_file',filename='Num_Summary.csv')}}">Data Summary</a></li>
+                    </ul>
+                  </li>
+              </div>
+        </div>
+    </nav>
+
+    <div class="container p-5">
+        <div class="jumbotron mt-4 border rounded border-success p-3">
+          <form id="prediction-form" action="{{ url_for('predict') }}" method="post">
+            <div class="col-md-12 text-center mb-4">
+              <h2 class="text-primary" style="font-family:'Times New Roman', Times, serif">Check Intrusion Attack Class</h2>
+              <label for="model_name" class="form-label">Choose Model</label>
+              <div class="d-flex justify-content-center">
+                        <select id="model_name" name="model_name" class="form-select w-50" style="align-self: center;" required>
+                            <option value="" selected disabled>Select Model</option>
+                            <option value="logistic_regression.pkl">Logistic Regression - Accuracy: 98.67%</option>
+                            <option value="k_nearest_neighbors.pkl">K Nearest Neighbors - Accuracy: 98.86%</option>
+                            <option value="decission_tree.pkl">Decission Tree - Accuracy: 53.46%</option>
+                            <option value="bernoulli_nb.pkl">Bernoulli Nb - Accuracy: 95.40%</option>
+                        </select>
+                      </div>
+            </div>
+            {% if output %}
+            <h3 class="text-secondary" style="text-align: center;">Attack Class should be <span class="text-danger">{{ output }}</span></h3>
+        {% endif %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="attack_type" class="form-label">Attack Type</label>
+                        <select id="attack_type" name="attack_type" class="form-select">
+                            <option value="0">Other</option>
+                            <option value="1">Neptune</option>
+                            <option value="2">Normal</option>
+                            <option value="3">Satan</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="count" class="form-label">Number of connections to the same destination host in the past two seconds</label>
+                        <input type="text" name="count" id="count" class="form-control" placeholder="Count" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dst_host_diff_srv_rate" class="form-label">Percentage of connections to different services</label>
+                        <input type="text" name="dst_host_diff_srv_rate" id="dst_host_diff_srv_rate" class="form-control" placeholder="Diff. Service Rate" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="dst_host_same_src_port_rate" class="form-label">Percentage of connections to the same source port</label>
+                      <input type="text" name="dst_host_same_src_port_rate" id="dst_host_same_src_port_rate" class="form-control" placeholder="Same Source Port Rate" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="dst_host_same_srv_rate" class="form-label">Percentage of connections to the same service</label>
+                    <input type="text" name="dst_host_same_srv_rate" id="dst_host_same_srv_rate" class="form-control" placeholder="Same Service Rate" required>
+                </div>
+                <div class="mb-3">
+                  <label for="dst_host_srv_count" class="form-label">Number of connections having the same port number</label>
+                  <input type="text" name="dst_host_srv_count" id="dst_host_srv_count" class="form-control" placeholder="Same Port Number Count" required>
+              </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="flag" class="form-label">Status of the connection – Normal or Error</label>
+                      <select id="flag" name="flag" class="form-select">
+                          <option value="0">Other</option>
+                          <option value="1">S0</option>
+                          <option value="2">SF</option>
+                      </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="last_flag" class="form-label">Last Flag</label>
+                    <input type="text" name="last_flag" id="last_flag" class="form-control" placeholder="Last Flag" required>
+                </div>
+                <div class="mb-3">
+                  <label for="logged_in" class="form-label">1 if successfully logged in; 0 otherwise</label>
+                  <input type="text" name="logged_in" id="logged_in" class="form-control" placeholder="Logged In" required>
+              </div>
+              <div class="mb-3">
+                <label for="same_srv_rate" class="form-label">Percentage of connections to the same service (count-based)</label>
+                <input type="text" name="same_srv_rate" id="same_srv_rate" class="form-control" placeholder="Same Service Rate (Count-based)" required>
+            </div>
+            <div class="mb-3">
+              <label for="serror_rate" class="form-label">Percentage of connections with flag (4) s0, s1, s2, or s3 (count-based)</label>
+              <input type="text" name="serror_rate" id="serror_rate" class="form-control" placeholder="Serror Rate (Count-based)" required>
+          </div>
+
+          <div class="mb-3">
+              <label for="service_http" class="form-label">Destination network service used http or not</label>
+              <select id="service_http" name="service_http" class="form-select">
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+              </select>
+          </div>
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary mx-auto d-block" style="width: 50%;">Predict</button>
+        </form>
+      </div>
+        <br>
+        {% if output %}
+    <h3 class="text-secondary" style="text-align: center;">Attack Class should be <span class="text-danger">{{ output }}</span></h3>
+    <div class="container mt-4 p-3 border border-primary rounded w-75">
+        <h4 class="text-primary text-center">Predicted Input</h4>
+        <ul class="list-group">
+          <li class="list-group-item"><b>Selected Model:</b>
+            {% if form_values_list[0] == "logistic_regression.pkl" %}Logistic Regression
+            {% elif form_values_list[0] == "k_nearest_neighbors.pkl" %}K Nearest Neighbors
+            {% elif form_values_list[0] == "decission_tree.pkl" %}Decision Tree
+            {% elif form_values_list[0] == "bernoulli_nb.pkl" %}Bernoulli NB
+            {% else %}Unknown Model
+            {% endif %}
+        </li>
+          <li class="list-group-item"><b>Attack Type:</b> {% if form_values_list[1] == "0" %}Others
+            {% elif form_values_list[1] == "1" %}Neptune
+            {% elif form_values_list[1] == "2" %}Normal
+            {% else %}Satan
+            {% endif %}
+</li>
+            <li class="list-group-item"><b>Diff. Service Rate: </b>{{ form_values_list[3] }}</li>
+            <li class="list-group-item"><b>Same Source Port Rate: </b>{{ form_values_list[4] }}</li>
+            <li class="list-group-item"><b>Same Service Rate: </b>{{ form_values_list[5] }}</li>
+            <li class="list-group-item"><b>Same Port Number Count: </b>{{ form_values_list[6] }}</li>
+            <li class="list-group-item"><b>Status of the Connection: </b>{% if form_values_list[7] == "0" %}Others
+              {% elif form_values_list[7] == "1" %}S0
+              {% elif form_values_list[7] == "2" %}S1
+              {% else %}Unknown
+              {% endif %}
+</li>
+
+            <li class="list-group-item"><b>Last Flag: </b>{{ form_values_list[8] }}</li>
+            <li class="list-group-item"><b>Logged In: </b>{{ form_values_list[9] }}</li>
+            <li class="list-group-item"><b>Same Service Rate (Count-based): </b>{{ form_values_list[10] }}</li>
+            <li class="list-group-item"><b>Serror Rate (Count-based): </b>{{ form_values_list[11] }}</li>
+            <li class="list-group-item"><b>Destination Network Service Used HTTP: </b>{% if form_values_list[12] == "0" %}No{% else %}Yes{% endif %}</li>
+            <li class="list-group-item"><h3 class="text-secondary" style="text-align: center;">Attack Class should be<b></b> <span class="text-danger">{{ output }}</span></h3></li>
+        </ul>
+    </div>
+{% endif %}
+    
+        </div>
+        <footer class="bg-primary text-light text-center py-3">
+          <div class="container">
+              <p>&copy; 2023 Intrusion Detection System</p>
+          </div>
+      </footer>
+  </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+    
+</body>
+</html>
