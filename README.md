@@ -1,5 +1,5 @@
 
-# DeepDefend: Optimized Multi-Model Approach for Network Intrusion Detection Using Deep Learning and IoT Security
+Optimized Multi-Model Approach for Network Intrusion Detection Using Deep Learning and IoT Security
 
 This repository contains all code artefacts, model architecture, notebooks, and a Flask web application developed for my MSc Final research project titled **"DeepDefend: Optimized Multi-Model Approach for Network Intrusion Detection Using Deep Learning and IoT Security Enhancement"** by Shahna Shahul Hameed.
 
